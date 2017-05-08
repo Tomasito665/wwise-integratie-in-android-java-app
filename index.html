@@ -54,7 +54,7 @@ class Foo {
 <li><a href="#wwise">Wwise</a></li></ul></li>
 <li><a href="#project-opzetten">Project opzetten</a> <br>
 <ul><li><a href="#android-manifest">Android Manifest</a></li>
-<li><a href="#hernoem-native-lib-naar-sound-engine-lib">Hernoem native-lib naar sound-engine-lib</a></li></ul></li>
+<li><a href="#hernoem-native-lib-tot-sound-engine-lib">Hernoem native-lib tot sound-engine-lib</a></li></ul></li>
 <li><a href="#wwise-sdk-importeren">Wwise SDK importeren</a> <br>
 <ul><li><a href="#gradle">Gradle</a></li>
 <li><a href="#cmake">CMake</a> <br>
@@ -137,9 +137,9 @@ Om problemen te voorkomen tijdens het compileren is het belangrijk dat het insta
 
 
 
-<h3 id="hernoem-native-lib-naar-sound-engine-lib">Hernoem native-lib naar sound-engine-lib</h3>
+<h3 id="hernoem-native-lib-tot-sound-engine-lib">Hernoem native-lib tot sound-engine-lib</h3>
 
-<p>Hernoem het <code>native-lib.cpp</code> bestand naar <code>sound-engine.cpp</code> via de Android Studio refactoring tool.</p>
+<p>Hernoem het <code>native-lib.cpp</code> bestand tot <code>sound-engine.cpp</code> via de Android Studio refactoring tool.</p>
 
 <p></p><center><img src="https://lh3.googleusercontent.com/-gTXGrffUCyA/WQ_1By-iSAI/AAAAAAAAJxo/qhvkIJamHPoBn8DB9w55YXdhbEHqjq7-ACE0/s450/Android+Studio+-+refactor+rename.PNG" alt="Android Studio - Rename" title="Rename"> &nbsp;&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/-hXJXkxuxOqg/WQ_4xhNUGgI/AAAAAAAAJyo/YUwcWzsrtpoSqvNYEtuYAWaf9CSS732JwCE0/s375/Android+Studio+-+rename+nativelib+to+soundenginelib.PNG" alt="Android Studio - Rename native-lib to sound-engine-lib" title="Android Studio - rename nativelib to soundenginelib"></center><p></p>
 
@@ -147,7 +147,7 @@ Om problemen te voorkomen tijdens het compileren is het belangrijk dat het insta
 
 <p></p><center><img src="https://lh3.googleusercontent.com/-Kx2yi_mf6pM/WQ_4Bx4MlfI/AAAAAAAAJyU/-PWJskMDeNQgqzwn2Gm7kmgH4uIEEyopwCE0/s800/Android+Studio+-+CMakeLists+find+and+replace.PNG" alt="Android Studio - CMakeLists find and replace" title="CMakeLists.txt find and replace"></center><p></p>
 
-<p>Doe hetzelfde met het <code>MainActivity.java</code> bestand. <br>
+<p>Doe hetzelfde bij het <code>MainActivity.java</code> bestand. <br>
 </p><center><img src="https://lh3.googleusercontent.com/JhthU0jZPWtpCB87i_hK6Kd4FTSVRxdi2O6DwgZXt_CVyEQaePIaWeJH994Jdya669jGqTjf=s800" alt="Android Studio - MainActivity find and replace" title="MainActivity.java find and replace"></center><p></p>
 
 <p>In het vervolg van de tutorial zal ik aan de <code>sound-engine-lib</code> library referen als <em>onze library</em>.</p>
@@ -213,7 +213,7 @@ android {
 
 <p>Het <code>CMakeLists.txt</code> bestand bevindt zich in <code>${projectDir}/app</code>. Activeer links boven in de <a href="https://www.jetbrains.com/help/idea/2017.1/project-tool-window.html">Project Tool Window</a> de <a href="https://www.jetbrains.com/help/idea/2017.1/project-tool-window.html#d775585e77">Project view</a>. Deze view is gebaseerd op de onderliggende mappen structuur. Dat is handig, omdat we zo een nieuwe map aan gaan maken.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-ATKEgEZNOfA/WQ7wiqTAqNI/AAAAAAAAJsw/vW0xPgWQA7oFJb1aI7Grmm73oXN66_3mQCE0/s775/Android+Studio+-+Project+View.PNG" alt="Android Studio - Project View" title="View"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-eejotbaLiQw/WQ__I8ODXKI/AAAAAAAAJzc/bOJMJDtD2-A97BJbU3xQVOyHrAoQFtD6QCE0/s750/Android+Studio+-+Project+View.PNG" alt="Android Studio - Project View" title="Project View"></center><p></p>
 
 <p>Naast de Gradle configuratie, heeft Android Studio ook het <code>CMakeLists.txt</code> bestand geprepareerd na het aanvinken van de C++ Support. Hier wordt onze <code>sound-engine-lib</code> shared library gecompileerd. </p>
 
