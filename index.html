@@ -47,28 +47,28 @@ class Foo {
 <h2 id="inhoudsopgave">Inhoudsopgave</h2>
 
 <ul>
-<li><a href="#benodigdheden-1">Benodigdheden</a> <br>
+<li><a href="#benodigdheden">Benodigdheden</a> <br>
 <ul><li><a href="#android-studio">Android Studio</a></li>
 <li><a href="#android-sdk">Android SDK</a></li>
 <li><a href="#android-ndk">Android NDK</a></li>
 <li><a href="#wwise">Wwise</a></li></ul></li>
-<li><a href="#project-opzetten-1">Project opzetten</a> <br>
+<li><a href="#project-opzetten">Project opzetten</a> <br>
 <ul><li><a href="#android-manifest">Android Manifest</a></li></ul></li>
 <li><a href="#wwise-sdk-importeren">Wwise SDK importeren</a> <br>
 <ul><li><a href="#gradle">Gradle</a></li>
 <li><a href="#cmake">CMake</a> <br>
 <ul><li><a href="#ndk-libraries">NDK Libraries</a></li>
-<li><a href="#libzip-headers">Libzip headers</a> <br>
+<li><a href="#libzip-headers">Libzip Headers</a> <br>
 <ul><li><a href="#libzip-configuratie">Libzip configuratie</a></li></ul></li>
-<li><a href="#wwise-headers-en-libraries-1">Wwise headers en libraries</a></li></ul></li></ul></li>
+<li><a href="#wwise-headers-en-libraries">Wwise headers en libraries</a></li></ul></li></ul></li>
 <li><a href="#soundengine-io">SoundEngine I/O</a></li>
 <li><a href="#wwise-hello-world-soundbank">Wwise Hello-world SoundBank</a> <br>
-<ul><li><a href="#soundbank-importeren-in-android-studio-1">Soundbank importeren in Android Studio</a></li></ul></li>
+<ul><li><a href="#soundbank-importeren-in-android-studio">Soundbank importeren in Android Studio</a></li></ul></li>
 <li><a href="#java-native-interface">Java Native Interface</a> <br>
 <ul><li><a href="#java">Java</a></li>
 <li><a href="#c">C++</a> <br>
 <ul><li><a href="#native-method-implementaties">Native method implementatie’s</a></li></ul></li></ul></li>
-<li><a href="#de-app-1">De app</a></li>
+<li><a href="#de-app">De app</a></li>
 </ul>
 
 <h2 id="benodigdheden">Benodigdheden</h2>
@@ -227,8 +227,6 @@ android {
 
 <p>Wwise maakt gebruikt van de volgende NDK libraries: libandroid, libz, liblog, libOpenSLES, libEGL en libGLESv1_CM. Voeg deze toe en link ze tegen onze <code>native-lib</code> library aan.</p>
 
-
-
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">find_library</span> ( android-lib android ) <span class="hljs-comment"># libandroid</span>
 <span class="hljs-keyword">find_library</span> ( z-lib z )             <span class="hljs-comment"># libz</span>
 <span class="hljs-keyword">find_library</span> ( log-lib log )         <span class="hljs-comment"># liblog</span>
@@ -245,11 +243,9 @@ android {
     <span class="hljs-envvar">${extraNdkLibs}</span> <span class="hljs-comment"># Link de NDK libraries</span>
 )</code></pre>
 
-<h4 id="libzip-headers">Libzip headers</h4>
+<h4 id="libzip-headers">Libzip Headers</h4>
 
 <p>De Wwise SDK komt met de binaries van libzip, maar ironisch gezien <strong>niet</strong> met de headers. Die kun je door CMake automatisch laten downloaden en toevoegen.</p>
-
-
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.4</span>.<span class="hljs-number">1</span>)
 <span class="hljs-keyword">include</span>(ExternalProject) <span class="hljs-comment"># Stelt de ExternalProject_Add functie ter beschikking</span>
@@ -304,8 +300,6 @@ target_include_directories( native-lib PUBLIC
 
 <p>Voeg deze map toe aan het include path in <code>CMakeLists.txt</code>.</p>
 
-
-
 <pre class="prettyprint"><code class="language-cmake hljs ">target_include_directories( native-lib PUBLIC
     <span class="hljs-string">"src/main/cpp"</span>
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
@@ -325,8 +319,6 @@ target_include_directories( native-lib PUBLIC
 </blockquote>
 
 <p>Stel de nieuwe map in als CMake module path in <code>CMakeLists.txt</code>. </p>
-
-
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">set</span>(CMAKE_MODULE_PATH <span class="hljs-envvar">${CMAKE_CURRENT_SOURCE_DIR}</span>/cmake-modules)</code></pre>
 
@@ -476,8 +468,6 @@ $projectDir/app/src/main/assets/soundbank
 <h2 id="java-native-interface">Java Native Interface</h2>
 
 <p>Om vanuit Java gebruik te kunnen maken van de functie’s uit de Wwise SDK gaan wij een class maken in Java, waarvan de methods als <code>native</code> staan gemarkeerd en worden geïmplementeerd in C++, waarin we gebruik kunnen maken van de Wwise SDK.</p>
-
-
 
 <h3 id="java">Java</h3>
 
