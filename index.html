@@ -72,9 +72,13 @@ class Foo {
 <li><a href="#de-app">De app</a></li>
 </ul>
 
+<p></p><div class="pagebreak"><p></p></div>
+
 <h2 id="benodigdheden">Benodigdheden</h2>
 
 <p>Het mixen van Java met andere talen via de JNI is een geavanceerd topic. Solide kennis van Java en C++ is zeer aan te raden.</p>
+
+
 
 <h4 id="android-studio">Android Studio</h4>
 
@@ -103,7 +107,16 @@ class Foo {
 <p><strong>Let op</strong> <br>
 Om problemen te voorkomen tijdens het compileren is het belangrijk dat het installatie pad van de SDK <strong>geen spatie’s</strong> bevat. Verplaats de SDK zo nodig naar een andere locatie.</p>
 
+<p></p><div class="pagebreak"><p></p>
 
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn:env-var">Een environment variabele is een systeem-brede variabele. De manier waarop zo’n type variabele kan worden gedeclareerd verschilt per platform. Op Windows kan dat via <code>Win + R</code>, daar intypen <code>SystemPropertiesAdvanced</code> en dan klikken op <em>Environment Variables</em>. Op OSX en Linux kan dat met het <code>export</code> commando, die je permanent kan maken door het toe te voegen aan je <code>~/.bash_profile</code> bestand. Het kan dat dit bestand nog niet bestaat. <a href="#fnref:env-var" title="Return to article" class="reversefootnote">↩</a></li>
+
+</ol>
+</div></div>
 
 <h2 id="project-opzetten">Project opzetten</h2>
 
@@ -121,6 +134,8 @@ Om problemen te voorkomen tijdens het compileren is het belangrijk dat het insta
 <h3 id="android-manifest">Android Manifest</h3>
 
 <p>Voeg de volgende machtigingen toe aan het <code>AndroidManifest.xml</code> bestand vóór de <code>&lt;application&gt;</code> tag.</p>
+
+
 
 <pre class="prettyprint"><code class=" hljs xml"><span class="hljs-comment">&lt;!-- Nodig voor de communicatie met de Wwise authoring tools --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">uses-permission</span> <span class="hljs-attribute">android:name</span>=<span class="hljs-value">"android.permission.INTERNET"</span> /&gt;</span>
@@ -151,6 +166,8 @@ Om problemen te voorkomen tijdens het compileren is het belangrijk dat het insta
 </p><center><img src="https://lh3.googleusercontent.com/JhthU0jZPWtpCB87i_hK6Kd4FTSVRxdi2O6DwgZXt_CVyEQaePIaWeJH994Jdya669jGqTjf=s800" alt="Android Studio - MainActivity find and replace" title="MainActivity.java find and replace"></center><p></p>
 
 <p>In het vervolg van de tutorial zal ik aan de <code>sound-engine-lib</code> library referen als <em>onze library</em>.</p>
+
+<p></p><div class="pagebreak">   <p></p></div>
 
 <h2 id="wwise-sdk-importeren">Wwise SDK importeren</h2>
 
@@ -195,6 +212,8 @@ android {
 
 <p>Voeg in <code>gradle.build</code> de volgende code toe om de compilatie van onze C/C++ code te beperken tot die vier architecturen.</p>
 
+
+
 <pre class="prettyprint"><code class="language-gradle hljs bash">android {
     defaultConfig {
         <span class="hljs-comment"># externalNativeBuild { ... }</span>
@@ -209,6 +228,8 @@ android {
   <p>Het is aan te raden om tijdens het ontwikkelen de compilatie tot te beperken tot één van die vier architecturen. Anders wordt er bij elke build vier keer gecompileerd.</p>
 </blockquote>
 
+
+
 <h3 id="cmake">CMake</h3>
 
 <p>Het <code>CMakeLists.txt</code> bestand bevindt zich in <code>${projectDir}/app</code>. Activeer links boven in de <a href="https://www.jetbrains.com/help/idea/2017.1/project-tool-window.html">Project Tool Window</a> de <a href="https://www.jetbrains.com/help/idea/2017.1/project-tool-window.html#d775585e77">Project view</a>. Deze view is gebaseerd op de onderliggende mappen structuur. Dat is handig, omdat we zo een nieuwe map aan gaan maken.</p>
@@ -216,6 +237,8 @@ android {
 <p></p><center><img src="https://lh3.googleusercontent.com/-eejotbaLiQw/WQ__I8ODXKI/AAAAAAAAJzc/bOJMJDtD2-A97BJbU3xQVOyHrAoQFtD6QCE0/s750/Android+Studio+-+Project+View.PNG" alt="Android Studio - Project View" title="Project View"></center><p></p>
 
 <p>Naast de Gradle configuratie, heeft Android Studio ook het <code>CMakeLists.txt</code> bestand geprepareerd na het aanvinken van de C++ Support. Hier wordt onze <code>sound-engine-lib</code> shared library gecompileerd. </p>
+
+
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.4</span>.<span class="hljs-number">1</span>)
 
@@ -239,9 +262,13 @@ android {
 <li>Wwise libraries linken</li>
 </ul>
 
+
+
 <h4 id="ndk-libraries">NDK Libraries</h4>
 
 <p>Wwise maakt gebruikt van de volgende NDK libraries: libandroid, libz, liblog, libOpenSLES, libEGL en libGLESv1_CM. Voeg deze toe en link ze tegen aan onze <code>sound-engine-lib</code> library.</p>
+
+
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">find_library</span> ( android-lib android ) <span class="hljs-comment"># libandroid</span>
 <span class="hljs-keyword">find_library</span> ( z-lib z )             <span class="hljs-comment"># libz</span>
@@ -259,9 +286,13 @@ android {
     <span class="hljs-envvar">${extraNdkLibs}</span> <span class="hljs-comment"># Link de NDK libraries</span>
 )</code></pre>
 
+
+
 <h4 id="libzip-headers">Libzip Headers</h4>
 
 <p>De Wwise SDK komt met de binaries van libzip, maar ironisch gezien <strong>niet</strong> met de headers. Die kun je door CMake automatisch laten downloaden en toevoegen.</p>
+
+
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.4</span>.<span class="hljs-number">1</span>)
 <span class="hljs-keyword">include</span>(ExternalProject) <span class="hljs-comment"># Stelt de ExternalProject_Add functie ter beschikking</span>
@@ -305,6 +336,8 @@ target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
 )</code></pre>
 
+
+
 <h5 id="libzip-configuratie">Libzip configuratie</h5>
 
 <p>Voor de configuratie van libzip moet het include path zijn <a href="https://github.com/nih-at/libzip/blob/rel-1-0/lib/zip.h#L59">voorzien</a> van een <code>zipconf.h</code> bestand. Download <a href="https://gist.github.com/Tomasito665/a28e296ee1474f665efd8997e227b1a8">zipconf.h</a> en zet het in dezelfde map waar ons <code>sound-engine-lib.cpp</code> bestand zich huisvest.</p>
@@ -314,10 +347,14 @@ target_include_directories( sound-engine-lib PUBLIC
 
 <p>Voeg deze map toe aan het include path in <code>CMakeLists.txt</code>.</p>
 
+
+
 <pre class="prettyprint"><code class="language-cmake hljs ">target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-string">"src/main/cpp"</span>
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
 )</code></pre>
+
+
 
 <h4 id="wwise-headers-en-libraries">Wwise headers en libraries</h4>
 
@@ -332,6 +369,8 @@ target_include_directories( sound-engine-lib PUBLIC
 
 <p>Stel de nieuwe map in als CMake module path in <code>CMakeLists.txt</code>. </p>
 
+
+
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">set</span>(CMAKE_MODULE_PATH <span class="hljs-envvar">${CMAKE_CURRENT_SOURCE_DIR}</span>/cmake-modules)</code></pre>
 
 <p>Nu kun je met het <code>find_package</code> commando het <code>FindWwise</code> cmake script uitvoeren. Dat zal een aantal variabelen definiëren:</p>
@@ -343,6 +382,8 @@ target_include_directories( sound-engine-lib PUBLIC
 </ul>
 
 <p>Voeg de Wwise headers toe aan het compileerproces en link de static libraries van Wwise aan onze <code>sound-engine-lib</code> shared library.</p>
+
+
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-comment"># Dit commando voert het FindWwise.cmake script uit.</span>
 <span class="hljs-comment"># Let er op dat dit commando ná het set(CMAKE_MODULE_PATH ... )</span>
@@ -367,6 +408,8 @@ target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-envvar">${extraNdkLibs}</span>
     <span class="hljs-envvar">${Wwise_LIBRARIES}</span>
 )</code></pre>
+
+<p></p><div class="pagebreak"><p></p></div>
 
 <h2 id="soundengine-io">SoundEngine I/O</h2>
 
@@ -405,6 +448,8 @@ $projectDir/app/src/main/cpp/wwise/SoundEngine/Win32
 
 <p>Voeg de bronbestanden van de code in de <code>SoundEngine</code> map toe aan onze <code>sound-engine-lib</code> library. Voeg ook de mappen <code>SoundEngine/Android</code> en <code>SoundEngine/Common</code> toe aan het include path.</p>
 
+
+
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">set</span> (WWISE_IO_COMMON_DIR src/main/cpp/wwise/SoundEngine/Common)
 <span class="hljs-keyword">set</span> (WWISE_IO_ANDROID_DIR src/main/cpp/wwise/SoundEngine/Android)
 
@@ -436,6 +481,8 @@ target_include_directories( sound-engine-lib PUBLIC
   <p>Als je na deze stap probeert de bouwen en de linker klaagt over missende implementatie’s, geen paniek. Dit is normaal. Het klopt dat de functie’s <code>AK::AllocHook(unsigned long)</code> en <code>AK::FreeHook(void*)</code> nog niet zijn geïmplementeerd. Hier kijken we later naar.</p>
 </blockquote>
 
+<p></p><div class="pagebreak"><p></p></div>
+
 <h2 id="wwise-hello-world-soundbank">Wwise Hello-world SoundBank</h2>
 
 <p>Voor deze tutorial gaan we een basis soundbank maken met één geluid en één event die dat geluid triggert. Open Wwise en maak een nieuw project aan. Voeg daarbij het <code>Android</code> platform toe.</p>
@@ -453,6 +500,8 @@ target_include_directories( sound-engine-lib PUBLIC
 <p>Open de <code>SoundBank Manager</code> view door op de <code>F7</code> toets te drukken. Maak een nieuwe soundbank aan en noem deze <code>Main</code>. Voeg het <code>HELLO_PLAY</code> event daar aan toe. Vink het <code>Android</code> platform aan en op z’n minst één taal in het <code>Languages</code> paneel. Druk op de <code>Generate</code> knop om de soundbank te bouwen.</p>
 
 <p></p><center><img src="https://lh3.googleusercontent.com/-RQAmWKNoMhs/WQ-QNdLZmpI/AAAAAAAAJv4/O2dZYiNI9sIhbTVLXRPsx2y7ZEuWTEW9QCE0/s750/WwiseSoundBankManager.PNG" alt="Wwise - SoundBank Manager" title="SoundBank Manager"></center><p></p>
+
+
 
 <h3 id="soundbank-importeren-in-android-studio">Soundbank importeren in Android Studio</h3>
 
@@ -475,9 +524,13 @@ $projectDir/app/src/main/assets/soundbank
   <p>De nieuw gecreëerde map heeft een speciale naam: “assets”. Door die naam weet Android Studio dat de inhoud van die map meegeleverd moet worden in de APK. Dat zie je tevens ook aan het speciale icoontje in de Project View.</p>
 </blockquote>
 
+<p></p><div class="pagebreak"><p></p></div>
+
 <h2 id="java-native-interface">Java Native Interface</h2>
 
 <p>Om vanuit Java gebruik te kunnen maken van de functie’s uit de Wwise SDK gaan wij een class maken in Java, waarvan de methods als <code>native</code> staan gemarkeerd en worden geïmplementeerd in C++, waarin we gebruik kunnen maken van de Wwise SDK.</p>
+
+
 
 <h3 id="java">Java</h3>
 
@@ -538,9 +591,13 @@ $projectDir/app/src/main/assets/soundbank
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">postEvent</span>(String id);
 }</code></pre>
 
+
+
 <h3 id="c">C++</h3>
 
 <p>De methods die met <code>native</code> staan gemarkeerd in de <code>SoundEngine</code> Java class ga je implementeren in het <code>sound-engine-lib.cpp</code> bestand. Voeg de volgende includes en defines toe.</p>
+
+
 
 <pre class="prettyprint"><code class="language-cpp hljs "><span class="hljs-preprocessor">#include &lt;jni.h&gt;</span>
 <span class="hljs-preprocessor">#include &lt;string&gt;</span>
@@ -577,6 +634,8 @@ $projectDir/app/src/main/assets/soundbank
 
 <p>De volgende functie’s staan gemarkeerd als <code>extern "C"</code> in de Wwise headers. De programmeur wordt geacht deze te implementeren.</p>
 
+
+
 <pre class="prettyprint"><code class="language-c++ hljs cpp"><span class="hljs-keyword">namespace</span> AK {
     <span class="hljs-keyword">void</span> *AllocHook(size_t size) {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">malloc</span>(size);
@@ -588,6 +647,8 @@ $projectDir/app/src/main/assets/soundbank
 }</code></pre>
 
 <p>Declareer de volgende globale variabelen. Deze variabelen zullen allemaal worden geïnitialiseerd in de implementatie van <code>SoundEngine#init(Activity)</code>.</p>
+
+
 
 <pre class="prettyprint"><code class="language-cpp hljs "><span class="hljs-comment">// Pointer naar the JavaVM</span>
 <span class="hljs-keyword">static</span> JavaVM *g_VM = <span class="hljs-keyword">nullptr</span>;
@@ -714,6 +775,8 @@ bool initWwise() {
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 }</code></pre>
 
+
+
 <h4 id="native-method-implementaties">Native method implementatie’s</h4>
 
 <p>De implementatie’s van <code>native</code> Java methods vereisen een stricte naamgeving. Die is als volgt <code>Java_%1_%2</code>, waar:</p>
@@ -778,6 +841,8 @@ Java_nl_jordiortola_wwiseintegratie_SoundEngine_init(
 
 <p>Implementeer de overige twee <code>native</code> <code>SoundEngine</code> methods.</p>
 
+
+
 <pre class="prettyprint"><code class="language-cpp hljs "><span class="hljs-comment">// JNI implementatie van SoundEngine#postEvent(String)</span>
 <span class="hljs-keyword">extern</span> <span class="hljs-string">"C"</span>
 JNIEXPORT jboolean JNICALL
@@ -820,6 +885,8 @@ Java_nl_jordiortola_wwiseintegratie_SoundEngine_loadBank(
     <span class="hljs-keyword">return</span> (jboolean) <span class="hljs-keyword">true</span>;
 }</code></pre>
 
+<p></p><div class="pagebreak"><p></p></div>
+
 <h2 id="de-app">De app</h2>
 
 <p>Alle Wwise code is nu geprepareerd en klaar voor gebruik. De code voor de app wordt geschreven in de <code>MainActivity</code> class. Initialiseer de <code>SoundEngine</code> in de <code>MainActivity#onCreate(Bundle)</code> method. Maak ook een field aan aan voor de event naam die we later naar Wwise gaan versturen.</p>
@@ -853,6 +920,8 @@ Java_nl_jordiortola_wwiseintegratie_SoundEngine_loadBank(
   <p>Tip: druk twee maal achter elkaar de Shift toets in om een bestand binnen het project te zoeken.</p>
 </blockquote>
 
+
+
 <pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">android.support.constraint.ConstraintLayout
 </span>  <span class="hljs-attribute">...</span> &gt;</span>
@@ -879,6 +948,8 @@ Java_nl_jordiortola_wwiseintegratie_SoundEngine_loadBank(
 
 <p>Schakel de knop in zodra de <code>SoundEngine</code> met success is geïnitialiseerd. Voeg vervolgens de click handler toe en stuur het Wwise event.</p>
 
+
+
 <pre class="prettyprint"><code class="language-java hljs "><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> {</span>
 
     <span class="hljs-annotation">@Override</span>
@@ -903,5 +974,7 @@ Java_nl_jordiortola_wwiseintegratie_SoundEngine_loadBank(
 }
 </code></pre>
 
-<p>Druk in Android Studio <code>Ctrl + F10</code> in, start de app, druk op de knop en voilà: geluid.</p><div class="footnotes"><hr><ol><li id="fn:wwise">Wwise is een omgeving waarin interactieve audio kan worden ontwikkeld voor games. <a href="#fnref:wwise" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:fmod">FMOD is een omgeving waarin interactieve audio kan worden ontwikkeld voor games. <a href="#fnref:fmod" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:wwise-sdk">Wwise Software Development Kit. <a href="#fnref:wwise-sdk" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:shared-lib">Een shared library − ookwel dynamic library genoemd − wordt niet mee gecompiled in de executable, maar blijft een losstaand bestand en kan runtime worden ingeladen. Op Linux en OSX systemen zijn shared libraries te herkennen door hun <code>.so</code> extensie, op Windows is dat <code>.dll</code>. <a href="#fnref:shared-lib" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:ade">Android Development Environment is een plugin voor Eclipse. Voordat Android Studio tijdens de Google I/O in 2013 werd gepresenteerd, was dit de officiële manier van ontwikkelen voor Android. <a href="#fnref:ade" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:android-sdk">Android Software Development Kit. <a href="#fnref:android-sdk" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:android-ndk">Android Native Development Kit. <a href="#fnref:android-ndk" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:env-var">Een environment variabele is een systeem-brede variabele. De manier waarop zo’n type variabele kan worden gedeclareerd verschilt per platform. Op Windows kan dat via <code>Win + R</code>, daar intypen <code>SystemPropertiesAdvanced</code> en dan klikken op <em>Environment Variables</em>. Op OSX en Linux kan dat met het <code>export</code> commando, die je permanent kan maken door het toe te voegen aan je <code>~/.bash_profile</code> bestand. Het kan dat dit bestand nog niet bestaat. <a href="#fnref:env-var" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:gradle">Gradle is een systeem waarmee het bouwen van software kan worden geautomatiseerd. Gradle wordt meegeleverd met Android Studio. <a href="#fnref:gradle" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:cmake">CMake is een zogenaamd meta-buildsystem. Dat houdt in dat CMake de code niet zélf compileert, maar afhankelijk van het platform een GNU Makefile, een Visual Studio project of een XCode project geneert (dit is niet de <a href="https://cmake.org/cmake/help/v3.8/manual/cmake-generators.7.html#makefile-generators">complete lijst</a>). Dit doet CMake aan de hand van <code>CMakeLists.txt</code> bestanden, die op een platform onafhankelijk niveau het compileerproces omschrijven. <a href="#fnref:cmake" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:singleton">Een singleton is een design pattern binnen Object Oriented Programming die maar één instantie van een bepaalde class toestaat. <a href="#fnref:singleton" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:logcat">De logcat is waar debug berichten naartoe worden gestuurd. Android Studio heeft een logcat monitor, waarmee deze berichten kunnen worden bekeken. <a href="#fnref:logcat" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:fully_qualified_java_class_name">Fully Qualified (Java) Class Name is de volledige naam van een Java class, inclusief package-name. Bijvoorbeeld: <em>nl.hku.foo.ClassNaam</em>. <a href="#fnref:fully_qualified_java_class_name" title="Return to article" class="reversefootnote">↩</a></li></ol></div></div></body>
+<p>Druk in Android Studio <code>Ctrl + F10</code> in, start de app, druk op de knop en voilà: geluid.</p>
+
+<div class="footnotes"><hr><ol><li id="fn:wwise">Wwise is een omgeving waarin interactieve audio kan worden ontwikkeld voor games. <a href="#fnref:wwise" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:fmod">FMOD is een omgeving waarin interactieve audio kan worden ontwikkeld voor games. <a href="#fnref:fmod" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:wwise-sdk">Wwise Software Development Kit. <a href="#fnref:wwise-sdk" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:shared-lib">Een shared library − ookwel dynamic library genoemd − wordt niet mee gecompiled in de executable, maar blijft een losstaand bestand en kan runtime worden ingeladen. Op Linux en OSX systemen zijn shared libraries te herkennen door hun <code>.so</code> extensie, op Windows is dat <code>.dll</code>. <a href="#fnref:shared-lib" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:ade">Android Development Environment is een plugin voor Eclipse. Voordat Android Studio tijdens de Google I/O in 2013 werd gepresenteerd, was dit de officiële manier van ontwikkelen voor Android. <a href="#fnref:ade" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:android-sdk">Android Software Development Kit. <a href="#fnref:android-sdk" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:android-ndk">Android Native Development Kit. <a href="#fnref:android-ndk" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:env-var">Een environment variabele is een systeem-brede variabele. De manier waarop zo’n type variabele kan worden gedeclareerd verschilt per platform. Op Windows kan dat via <code>Win + R</code>, daar intypen <code>SystemPropertiesAdvanced</code> en dan klikken op <em>Environment Variables</em>. Op OSX en Linux kan dat met het <code>export</code> commando, die je permanent kan maken door het toe te voegen aan je <code>~/.bash_profile</code> bestand. Het kan dat dit bestand nog niet bestaat. <a href="#fnref:env-var" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:gradle">Gradle is een systeem waarmee het bouwen van software kan worden geautomatiseerd. Gradle wordt meegeleverd met Android Studio. <a href="#fnref:gradle" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:cmake">CMake is een zogenaamd meta-buildsystem. Dat houdt in dat CMake de code niet zélf compileert, maar afhankelijk van het platform een GNU Makefile, een Visual Studio project of een XCode project geneert (dit is niet de <a href="https://cmake.org/cmake/help/v3.8/manual/cmake-generators.7.html#makefile-generators">complete lijst</a>). Dit doet CMake aan de hand van <code>CMakeLists.txt</code> bestanden, die op een platform onafhankelijk niveau het compileerproces omschrijven. <a href="#fnref:cmake" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:singleton">Een singleton is een design pattern binnen Object Oriented Programming die maar één instantie van een bepaalde class toestaat. <a href="#fnref:singleton" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:logcat">De logcat is waar debug berichten naartoe worden gestuurd. Android Studio heeft een logcat monitor, waarmee deze berichten kunnen worden bekeken. <a href="#fnref:logcat" title="Return to article" class="reversefootnote">↩</a></li><li id="fn:fully_qualified_java_class_name">Fully Qualified (Java) Class Name is de volledige naam van een Java class, inclusief package-name. Bijvoorbeeld: <em>nl.hku.foo.ClassNaam</em>. <a href="#fnref:fully_qualified_java_class_name" title="Return to article" class="reversefootnote">↩</a></li></ol></div></div></body>
 </html>
