@@ -53,7 +53,8 @@ class Foo {
 <li><a href="#android-ndk">Android NDK</a></li>
 <li><a href="#wwise">Wwise</a></li></ul></li>
 <li><a href="#project-opzetten">Project opzetten</a> <br>
-<ul><li><a href="#android-manifest">Android Manifest</a></li></ul></li>
+<ul><li><a href="#android-manifest">Android Manifest</a></li>
+<li><a href="#hernoem-native-lib-naar-sound-engine-lib">Hernoem native-lib naar sound-engine-lib</a></li></ul></li>
 <li><a href="#wwise-sdk-importeren">Wwise SDK importeren</a> <br>
 <ul><li><a href="#gradle">Gradle</a></li>
 <li><a href="#cmake">CMake</a> <br>
@@ -134,6 +135,23 @@ Om problemen te voorkomen tijdens het compileren is het belangrijk dat het insta
 <span class="hljs-tag">&lt;<span class="hljs-title">application</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- etc --&gt;</span></code></pre>
 
+
+
+<h3 id="hernoem-native-lib-naar-sound-engine-lib">Hernoem native-lib naar sound-engine-lib</h3>
+
+<p>Hernoem het <code>native-lib.cpp</code> bestand naar <code>sound-engine.cpp</code> via de Android Studio refactoring tool.</p>
+
+<p></p><center><img src="https://lh3.googleusercontent.com/-gTXGrffUCyA/WQ_1By-iSAI/AAAAAAAAJxo/qhvkIJamHPoBn8DB9w55YXdhbEHqjq7-ACE0/s450/Android+Studio+-+refactor+rename.PNG" alt="Android Studio - Rename" title="Rename"> &nbsp;&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/-hXJXkxuxOqg/WQ_4xhNUGgI/AAAAAAAAJyo/YUwcWzsrtpoSqvNYEtuYAWaf9CSS732JwCE0/s375/Android+Studio+-+rename+nativelib+to+soundenginelib.PNG" alt="Android Studio - Rename native-lib to sound-engine-lib" title="Android Studio - rename nativelib to soundenginelib"></center><p></p>
+
+<p>Open het <code>CMakeLists.txt</code> bestand en druk de toetscombinatie <code>Ctrl + R</code> in om het zoek-en-vervang balkje tevoorschijn te halen. Vervang alle <code>native-lib</code> woorden met <code>sound-engine-lib</code>.</p>
+
+<p></p><center><img src="https://lh3.googleusercontent.com/-Kx2yi_mf6pM/WQ_4Bx4MlfI/AAAAAAAAJyU/-PWJskMDeNQgqzwn2Gm7kmgH4uIEEyopwCE0/s800/Android+Studio+-+CMakeLists+find+and+replace.PNG" alt="Android Studio - CMakeLists find and replace" title="CMakeLists.txt find and replace"></center><p></p>
+
+<p>Doe hetzelfde met het <code>MainActivity.java</code> bestand. <br>
+</p><center><img src="https://lh3.googleusercontent.com/JhthU0jZPWtpCB87i_hK6Kd4FTSVRxdi2O6DwgZXt_CVyEQaePIaWeJH994Jdya669jGqTjf=s800" alt="Android Studio - MainActivity find and replace" title="MainActivity.java find and replace"></center><p></p>
+
+<p>In het vervolg van de tutorial zal ik aan de <code>sound-engine-lib</code> library referen als <em>onze library</em>.</p>
+
 <h2 id="wwise-sdk-importeren">Wwise SDK importeren</h2>
 
 
@@ -197,22 +215,22 @@ android {
 
 <p></p><center><img src="https://lh3.googleusercontent.com/-ATKEgEZNOfA/WQ7wiqTAqNI/AAAAAAAAJsw/vW0xPgWQA7oFJb1aI7Grmm73oXN66_3mQCE0/s775/Android+Studio+-+Project+View.PNG" alt="Android Studio - Project View" title="View"></center><p></p>
 
-<p>Naast de Gradle configuratie, heeft Android Studio ook het <code>CMakeLists.txt</code> bestand geprepareerd na het aanvinken van de C++ Support. Hier wordt onze <code>native-lib</code> shared library gecompileerd. </p>
+<p>Naast de Gradle configuratie, heeft Android Studio ook het <code>CMakeLists.txt</code> bestand geprepareerd na het aanvinken van de C++ Support. Hier wordt onze <code>sound-engine-lib</code> shared library gecompileerd. </p>
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.4</span>.<span class="hljs-number">1</span>)
 
-<span class="hljs-comment"># Creëer een nieuwe shared library, bestaande uit één bronbestand</span>
-<span class="hljs-keyword">add_library</span>( native-lib
+<span class="hljs-comment"># Creëert een nieuwe shared library, bestaande uit één bronbestand</span>
+<span class="hljs-keyword">add_library</span>( sound-engine-lib
              SHARED
-             src/main/cpp/native-lib.cpp )
+             src/main/cpp/sound-engine-lib.cpp )
 
 <span class="hljs-comment"># Zoek de log library, verschaft door de NDK</span>
 <span class="hljs-keyword">find_library</span>( log-lib log )
 
-<span class="hljs-comment"># Link de log library tegen onze native-lib shared library aan</span>
-<span class="hljs-keyword">target_link_libraries</span>( native-lib <span class="hljs-envvar">${log-lib}</span> )</code></pre>
+<span class="hljs-comment"># Link de log library aan onze sound-engine-lib shared library</span>
+<span class="hljs-keyword">target_link_libraries</span>( sound-engine-lib <span class="hljs-envvar">${log-lib}</span> )</code></pre>
 
-<p>Om in ons <code>native-lib.cpp</code> bronbestand gebruik te kunnen maken van de functies uit de Wwise SDK moet het volgende gebeuren.</p>
+<p>Om in ons <code>sound-engine-lib.cpp</code> bronbestand gebruik te kunnen maken van de functies uit de Wwise SDK moet het volgende gebeuren.</p>
 
 <ul>
 <li>Extra NDK libraries linken</li>
@@ -221,11 +239,9 @@ android {
 <li>Wwise libraries linken</li>
 </ul>
 
-
-
 <h4 id="ndk-libraries">NDK Libraries</h4>
 
-<p>Wwise maakt gebruikt van de volgende NDK libraries: libandroid, libz, liblog, libOpenSLES, libEGL en libGLESv1_CM. Voeg deze toe en link ze tegen onze <code>native-lib</code> library aan.</p>
+<p>Wwise maakt gebruikt van de volgende NDK libraries: libandroid, libz, liblog, libOpenSLES, libEGL en libGLESv1_CM. Voeg deze toe en link ze tegen aan onze <code>sound-engine-lib</code> library.</p>
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">find_library</span> ( android-lib android ) <span class="hljs-comment"># libandroid</span>
 <span class="hljs-keyword">find_library</span> ( z-lib z )             <span class="hljs-comment"># libz</span>
@@ -239,7 +255,7 @@ android {
 <span class="hljs-keyword">set</span> (extraNdkLibs <span class="hljs-envvar">${android-lib}</span> <span class="hljs-envvar">${z-lib}</span> <span class="hljs-envvar">${log-lib}</span> 
     <span class="hljs-envvar">${opensl-lib}</span> <span class="hljs-envvar">${egl-lib}</span> <span class="hljs-envvar">${gles-lib}</span> )
 
-<span class="hljs-keyword">target_link_libraries</span>( native-lib
+<span class="hljs-keyword">target_link_libraries</span>( sound-engine-lib
     <span class="hljs-envvar">${extraNdkLibs}</span> <span class="hljs-comment"># Link de NDK libraries</span>
 )</code></pre>
 
@@ -276,36 +292,32 @@ ExternalProject_Add(libzip_externalproject
 ExternalProject_Get_Property(libzip_externalproject SOURCE_DIR)
 <span class="hljs-keyword">set</span> (LIBZIP_INCLUDE_DIR <span class="hljs-envvar">${SOURCE_DIR}</span>/lib)
 
-<span class="hljs-comment"># add_library(native-lib ... )</span>
-<span class="hljs-comment"># target_link_libraries(native-lib ... )</span>
+<span class="hljs-comment"># add_library(sound-engine-lib ... )</span>
+<span class="hljs-comment"># target_link_libraries(sound-engine-lib ... )</span>
 
 <span class="hljs-comment"># Onze library is afhankelijk van het downloadproces van libzip. </span>
 <span class="hljs-comment"># Als dit wordt weggelaten, wacht de compiler niet totdat libzip </span>
 <span class="hljs-comment"># is gedownload en faalt de compilatie.</span>
-<span class="hljs-keyword">add_dependencies</span>(native-lib libzip_externalproject)
+<span class="hljs-keyword">add_dependencies</span>(sound-engine-lib libzip_externalproject)
 
 <span class="hljs-comment"># Voeg de headers toe aan onze library</span>
-target_include_directories( native-lib PUBLIC
+target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
 )</code></pre>
 
-
-
 <h5 id="libzip-configuratie">Libzip configuratie</h5>
 
-<p>Voor de configuratie van libzip moet het include path zijn <a href="https://github.com/nih-at/libzip/blob/rel-1-0/lib/zip.h#L59">voorzien</a> van een <code>zipconf.h</code> bestand. Download <a href="https://gist.github.com/Tomasito665/a28e296ee1474f665efd8997e227b1a8">zipconf.h</a> en zet het in dezelfde map waar onze <code>native-lib.cpp</code> code zich huisvest.</p>
+<p>Voor de configuratie van libzip moet het include path zijn <a href="https://github.com/nih-at/libzip/blob/rel-1-0/lib/zip.h#L59">voorzien</a> van een <code>zipconf.h</code> bestand. Download <a href="https://gist.github.com/Tomasito665/a28e296ee1474f665efd8997e227b1a8">zipconf.h</a> en zet het in dezelfde map waar ons <code>sound-engine-lib.cpp</code> bestand zich huisvest.</p>
 
 <pre><code>$projectDir/app/src/main/cpp/zipconf.h
 </code></pre>
 
 <p>Voeg deze map toe aan het include path in <code>CMakeLists.txt</code>.</p>
 
-<pre class="prettyprint"><code class="language-cmake hljs ">target_include_directories( native-lib PUBLIC
+<pre class="prettyprint"><code class="language-cmake hljs ">target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-string">"src/main/cpp"</span>
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
 )</code></pre>
-
-
 
 <h4 id="wwise-headers-en-libraries">Wwise headers en libraries</h4>
 
@@ -330,9 +342,7 @@ target_include_directories( native-lib PUBLIC
 <li><code>Wwise_INCLUDE_DIR</code> De map met de header (.h) files van Wwise.</li>
 </ul>
 
-<p>Voeg de Wwise headers toe aan het compileerproces en link de static libraries van Wwise aan onze <code>native-lib</code> shared library.</p>
-
-
+<p>Voeg de Wwise headers toe aan het compileerproces en link de static libraries van Wwise aan onze <code>sound-engine-lib</code> shared library.</p>
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-comment"># Dit commando voert het FindWwise.cmake script uit.</span>
 <span class="hljs-comment"># Let er op dat dit commando ná het set(CMAKE_MODULE_PATH ... )</span>
@@ -346,14 +356,14 @@ target_include_directories( native-lib PUBLIC
 <span class="hljs-keyword">endif</span>()
 
 <span class="hljs-comment"># Voeg de Wwise headers toe</span>
-target_include_directories( native-lib PUBLIC
+target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-string">"src/main/cpp"</span>
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
     <span class="hljs-envvar">${Wwise_INCLUDE_DIR}</span>
 )
 
 <span class="hljs-comment"># Link de Wwise libraries met onze library</span>
-<span class="hljs-keyword">target_link_libraries</span>( native-lib
+<span class="hljs-keyword">target_link_libraries</span>( sound-engine-lib
     <span class="hljs-envvar">${extraNdkLibs}</span>
     <span class="hljs-envvar">${Wwise_LIBRARIES}</span>
 )</code></pre>
@@ -393,7 +403,7 @@ $projectDir/app/src/main/cpp/wwise/SoundEngine/Win32
 
 <p></p><center><img src="https://lh3.googleusercontent.com/-Fk9embDNXr4/WQ-AXPyDJsI/AAAAAAAAJtY/3WNXpLBqS2MbErhg8koe6KeDTyEWiCPogCE0/s775/mappenstructuurAndroidStudio.PNG" alt="Android Studio - Mappenstructuur" title="Mappenstructuur"></center><p></p>
 
-<p>Voeg de bronbestanden van de code in de <code>SoundEngine</code> map toe aan onze <code>native-lib</code> library. Voeg ook de mappen <code>SoundEngine/Android</code> en <code>SoundEngine/Common</code> toe aan het include path.</p>
+<p>Voeg de bronbestanden van de code in de <code>SoundEngine</code> map toe aan onze <code>sound-engine-lib</code> library. Voeg ook de mappen <code>SoundEngine/Android</code> en <code>SoundEngine/Common</code> toe aan het include path.</p>
 
 <pre class="prettyprint"><code class="language-cmake hljs "><span class="hljs-keyword">set</span> (WWISE_IO_COMMON_DIR src/main/cpp/wwise/SoundEngine/Common)
 <span class="hljs-keyword">set</span> (WWISE_IO_ANDROID_DIR src/main/cpp/wwise/SoundEngine/Android)
@@ -408,13 +418,13 @@ $projectDir/app/src/main/cpp/wwise/SoundEngine/Win32
   <span class="hljs-envvar">${WWISE_IO_ANDROID_DIR}</span>/AkFileHelpers.cpp )
 
 <span class="hljs-comment"># Voeg de bronbestanden toe aan onze library</span>
-<span class="hljs-keyword">add_library</span>( native-lib
+<span class="hljs-keyword">add_library</span>( sound-engine-lib
              SHARED
-             src/main/cpp/native-lib.cpp
+             src/main/cpp/sound-engine-lib.cpp
              <span class="hljs-envvar">${WWISE_IO_SRC_FILES}</span> )
 
 <span class="hljs-comment"># Voeg de nieuwe directories toe aan het include path</span>
-target_include_directories( native-lib PUBLIC
+target_include_directories( sound-engine-lib PUBLIC
     <span class="hljs-string">"src/main/cpp"</span>
     <span class="hljs-envvar">${LIBZIP_INCLUDE_DIR}</span>
     <span class="hljs-envvar">${Wwise_INCLUDE_DIR}</span>
@@ -471,7 +481,7 @@ $projectDir/app/src/main/assets/soundbank
 
 <h3 id="java">Java</h3>
 
-<p>Maak een nieuwe Java class aan in dezelfde map als de <code>MainActivity</code> class en noem die <em>SoundEngine</em>. Maak van deze class een singleton <a href="#fn:singleton" id="fnref:singleton" title="See footnote" class="footnote">11</a> en laadt de <code>native-lib</code> library in met de <code>System#loadLibrary</code> functie. Geef de class drie met <code>native</code> gemarkeerde methods: <code>SoundEngine#init()</code>, <code>SoundEngine#loadBank(String)</code> en <code>SoundEngine#postEvent(String)</code>. Laat ze alle drie een <code>boolean</code> teruggeven. Voeg ook een <code>SoundEngine#init(Activity)</code> method toe, wederom gemarkeerd met het <code>native</code> keyword. Laat deze method niets terug geven.</p>
+<p>Maak een nieuwe Java class aan in dezelfde map als de <code>MainActivity</code> class en noem die <em>SoundEngine</em>. Maak van deze class een singleton <a href="#fn:singleton" id="fnref:singleton" title="See footnote" class="footnote">11</a> en laadt onze <code>sound-engine-lib</code> library in met de <code>System#loadLibrary</code> functie. Geef de class drie met <code>native</code> gemarkeerde methods: <code>SoundEngine#init()</code>, <code>SoundEngine#loadBank(String)</code> en <code>SoundEngine#postEvent(String)</code>. Laat ze alle drie een <code>boolean</code> teruggeven. Voeg ook een <code>SoundEngine#init(Activity)</code> method toe, wederom gemarkeerd met het <code>native</code> keyword. Laat deze method niets terug geven.</p>
 
 
 
@@ -479,8 +489,8 @@ $projectDir/app/src/main/assets/soundbank
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SoundEngine</span> {</span>
     <span class="hljs-keyword">static</span> {
-        <span class="hljs-comment">// Laadt onze native-lib C++ library in</span>
-        System.loadLibrary(<span class="hljs-string">"native-lib"</span>);
+        <span class="hljs-comment">// Laadt onze sound-engine-lib C++ library in</span>
+        System.loadLibrary(<span class="hljs-string">"sound-engine-lib"</span>);
     }
 
     <span class="hljs-comment">// De singleton instantie</span>
@@ -530,7 +540,7 @@ $projectDir/app/src/main/assets/soundbank
 
 <h3 id="c">C++</h3>
 
-<p>De methods die met <code>native</code> staan gemarkeerd in de <code>SoundEngine</code> Java class ga je implementeren in het <code>native-lib.cpp</code> bestand. Voeg de volgende includes en defines toe.</p>
+<p>De methods die met <code>native</code> staan gemarkeerd in de <code>SoundEngine</code> Java class ga je implementeren in het <code>sound-engine-lib.cpp</code> bestand. Voeg de volgende includes en defines toe.</p>
 
 <pre class="prettyprint"><code class="language-cpp hljs "><span class="hljs-preprocessor">#include &lt;jni.h&gt;</span>
 <span class="hljs-preprocessor">#include &lt;string&gt;</span>
