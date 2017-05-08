@@ -108,11 +108,11 @@ Om problemen te voorkomen tijdens het compileren is het belangrijk dat het insta
 
 <p>Maak een nieuw project aan in Android Studio. Vink daarbij de <strong>C++ support</strong> aan. Zo creëert Android Studio alvast één C++ bronbestand en configureert automatisch de Gradle<a href="#fn:gradle" id="fnref:gradle" title="See footnote" class="footnote">9</a> build voor C++ compilatie. Laat bij de overige configuratie schermen de opties op hun standaardwaardes en klik bij het laatste scherm op <em>Finish</em>.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/ttem0rJLVUCJcYTwPq3RDRQuzmxH1whIdhhb1JGcq3P6k5Xm-zZuNYnSQNghF3lK3m8-ol8m=s231" alt="Android Studio - Welcome screen" title="Android Studio - New Project">&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/Cmjrf-6y0X5EbpSJzlTTMozL5YvtTKWOYPtMTmASFUEwbyrLGpubrBbj0lkKh3JleV5PDuCc=s362" alt="New Project" title="New project"> <br>
+<p></p><center><img src="https://lh3.googleusercontent.com/ttem0rJLVUCJcYTwPq3RDRQuzmxH1whIdhhb1JGcq3P6k5Xm-zZuNYnSQNghF3lK3m8-ol8m=s312" alt="Android Studio - Welcome screen" title="Android Studio - New Project">&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/Cmjrf-6y0X5EbpSJzlTTMozL5YvtTKWOYPtMTmASFUEwbyrLGpubrBbj0lkKh3JleV5PDuCc=s489" alt="New Project" title="New project"> <br>
 </center> <p></p>
 
 <blockquote>
-  <p>Vanaf nu kan je op elk moment de applicatie op je mobiel of op een emulator uitvoeren vanuit Android Studio met deze knop: <img src="https://lh3.googleusercontent.com/-iympYpIlZh0/WQ4Z2VvZzqI/AAAAAAAAJr4/SBKna7eRiHE9fJHCEdX0PMSNRVU8cjrYwCE0/s50/runApp.png" alt="Android studio - Run App" title="Run App"> .</p>
+  <p>Vanaf nu kan je op elk moment de applicatie op je mobiel of op een emulator uitvoeren vanuit Android Studio met deze knop: <img src="https://lh3.googleusercontent.com/-iympYpIlZh0/WQ4Z2VvZzqI/AAAAAAAAJr4/SBKna7eRiHE9fJHCEdX0PMSNRVU8cjrYwCE0/s80/runApp.png" alt="Android studio - Run App" title="Run App"> .</p>
 </blockquote>
 
 
@@ -195,7 +195,7 @@ android {
 
 <p>Het <code>CMakeLists.txt</code> bestand bevindt zich in <code>${projectDir}/app</code>. Activeer links boven in de <a href="https://www.jetbrains.com/help/idea/2017.1/project-tool-window.html">Project Tool Window</a> de <a href="https://www.jetbrains.com/help/idea/2017.1/project-tool-window.html#d775585e77">Project view</a>. Deze view is gebaseerd op de onderliggende mappen structuur. Dat is handig, omdat we zo een nieuwe map aan gaan maken.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-ATKEgEZNOfA/WQ7wiqTAqNI/AAAAAAAAJsw/vW0xPgWQA7oFJb1aI7Grmm73oXN66_3mQCE0/s550/Android+Studio+-+Project+View.PNG" alt="Android Studio - Project View" title="View"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-ATKEgEZNOfA/WQ7wiqTAqNI/AAAAAAAAJsw/vW0xPgWQA7oFJb1aI7Grmm73oXN66_3mQCE0/s775/Android+Studio+-+Project+View.PNG" alt="Android Studio - Project View" title="View"></center><p></p>
 
 <p>Naast de Gradle configuratie, heeft Android Studio ook het <code>CMakeLists.txt</code> bestand geprepareerd na het aanvinken van de C++ Support. Hier wordt onze <code>native-lib</code> shared library gecompileerd. </p>
 
@@ -399,7 +399,7 @@ $projectDir/app/src/main/cpp/wwise/SoundEngine/Win32
 
 <p>De mappen structuur ziet er binnen Android Studio nu als volgt uit.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-Fk9embDNXr4/WQ-AXPyDJsI/AAAAAAAAJtY/3WNXpLBqS2MbErhg8koe6KeDTyEWiCPogCE0/s550/mappenstructuurAndroidStudio.PNG" alt="Android Studio - Mappenstructuur" title="Mappenstructuur"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-Fk9embDNXr4/WQ-AXPyDJsI/AAAAAAAAJtY/3WNXpLBqS2MbErhg8koe6KeDTyEWiCPogCE0/s775/mappenstructuurAndroidStudio.PNG" alt="Android Studio - Mappenstructuur" title="Mappenstructuur"></center><p></p>
 
 <p>Voeg de bronbestanden van de code in de <code>SoundEngine</code> map toe aan onze <code>native-lib</code> library. Voeg ook de mappen <code>SoundEngine/Android</code> en <code>SoundEngine/Common</code> toe aan het include path.</p>
 
@@ -438,19 +438,19 @@ target_include_directories( native-lib PUBLIC
 
 <p>Voor deze tutorial gaan we een basis soundbank maken met één geluid en één event die dat geluid triggert. Open Wwise en maak een nieuw project aan. Voeg daarbij het <code>Android</code> platform toe.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-0P3ZeGfFRtQ/WQ-LAvDKSwI/AAAAAAAAJtw/oiCba5UW2T0ldtX5MXCvOBBTSeokDJ3-ACE0/s475/WwiseNewProject.PNG" alt="Wwise - New Project" title="New Project"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-0P3ZeGfFRtQ/WQ-LAvDKSwI/AAAAAAAAJtw/oiCba5UW2T0ldtX5MXCvOBBTSeokDJ3-ACE0/s600/WwiseNewProject.PNG" alt="Wwise - New Project" title="New Project"></center><p></p>
 
 <p>Sleep een geluidsbestand naar keuze in de <code>Actor-Mixer Hierarchy</code> map in Wwise. Klik daarna met de rechter muisknop op het ingesleepte bestand en klik vervolgens op <code>Convert</code>. Vink het <code>Android</code> platform aan en klik op <code>OK</code>.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-fX35o4iGkb4/WQ-MBDbMvoI/AAAAAAAAJuE/wEqJtfEss2MdvHtCm-J-MAoTVAwo1MBsgCE0/s475/WwiseConvertAudio.PNG" alt="Wwise - Convert..." title="Convert...">&nbsp;&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/-mRvDlaDv0CI/WQ-M1yTVFnI/AAAAAAAAJuk/VpWRuV6erRYjAydInmq6z9jZfW3TGE9MQCE0/s300/WwiseAudioFileConversion.PNG" alt="Wwise - Audio File Conversion Dialog" title="Audio File Conversion Dialog"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-fX35o4iGkb4/WQ-MBDbMvoI/AAAAAAAAJuE/wEqJtfEss2MdvHtCm-J-MAoTVAwo1MBsgCE0/s675/WwiseConvertAudio.PNG" alt="Wwise - Convert..." title="Convert...">&nbsp;&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/-mRvDlaDv0CI/WQ-M1yTVFnI/AAAAAAAAJuk/VpWRuV6erRYjAydInmq6z9jZfW3TGE9MQCE0/s312/WwiseAudioFileConversion.PNG" alt="Wwise - Audio File Conversion Dialog" title="Audio File Conversion Dialog"></center><p></p>
 
 <p>Maak een nieuw <code>Play</code> event aan en noem dat <code>HELLO_PLAY</code>.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-9FYSXBragqU/WQ-ONbIRXYI/AAAAAAAAJvE/wqlzZY0Ua_0VVTku5a7AQklcOP3B9sBDgCE0/s300/WwiseNewEvent.PNG" alt="Wwise - New Event" title="New Event">&nbsp;&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/-ZVS7yPwxAko/WQ-O-VUQfwI/AAAAAAAAJvo/AbrEVq5VJRk0a02Ernqni14icRDY6PbiACE0/s300/WwiseEventName.PNG" alt="Wwise - Event Name" title="Event Name"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-9FYSXBragqU/WQ-ONbIRXYI/AAAAAAAAJvE/wqlzZY0Ua_0VVTku5a7AQklcOP3B9sBDgCE0/s350/WwiseNewEvent.PNG" alt="Wwise - New Event" title="New Event">&nbsp;&nbsp;&nbsp;<img src="https://lh3.googleusercontent.com/-ZVS7yPwxAko/WQ-O-VUQfwI/AAAAAAAAJvo/AbrEVq5VJRk0a02Ernqni14icRDY6PbiACE0/s380/WwiseEventName.PNG" alt="Wwise - Event Name" title="Event Name"></center><p></p>
 
 <p>Open de <code>SoundBank Manager</code> view door op de <code>F7</code> toets te drukken. Maak een nieuwe soundbank aan en noem deze <code>Main</code>. Voeg het <code>HELLO_PLAY</code> event daar aan toe. Vink het <code>Android</code> platform aan en op z’n minst één taal in het <code>Languages</code> paneel. Druk op de <code>Generate</code> knop om de soundbank te bouwen.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-RQAmWKNoMhs/WQ-QNdLZmpI/AAAAAAAAJv4/O2dZYiNI9sIhbTVLXRPsx2y7ZEuWTEW9QCE0/s500/WwiseSoundBankManager.PNG" alt="Wwise - SoundBank Manager" title="SoundBank Manager"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-RQAmWKNoMhs/WQ-QNdLZmpI/AAAAAAAAJv4/O2dZYiNI9sIhbTVLXRPsx2y7ZEuWTEW9QCE0/s750/WwiseSoundBankManager.PNG" alt="Wwise - SoundBank Manager" title="SoundBank Manager"></center><p></p>
 
 <h3 id="soundbank-importeren-in-android-studio">Soundbank importeren in Android Studio</h3>
 
@@ -467,13 +467,11 @@ $projectDir/app/src/main/assets/soundbank
 
 <p>Kopiëer alle bestanden uit <code>GeneratedSoundBanks/Android</code> en plak ze in de nieuwe <code>soundbank</code> map. Het Project View venster in Android Studio ziet er nu als volgt uit.</p>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-YCL-XVdkTnk/WQ-TwQ7T9XI/AAAAAAAAJwU/8NizS7o4G6gsSX2p4QkzZ9nr4nYXRzBHgCE0/s500/Android+Studio+-+soundbank.PNG" alt="Android Studio - Project view soundbank folder" title="Soundbank directory"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-YCL-XVdkTnk/WQ-TwQ7T9XI/AAAAAAAAJwU/8NizS7o4G6gsSX2p4QkzZ9nr4nYXRzBHgCE0/s650/Android+Studio+-+soundbank.PNG" alt="Android Studio - Project view soundbank folder" title="Soundbank directory"></center><p></p>
 
 <blockquote>
   <p>De nieuw gecreëerde map heeft een speciale naam: “assets”. Door die naam weet Android Studio dat de inhoud van die map meegeleverd moet worden in de APK. Dat zie je tevens ook aan het speciale icoontje in de Project View.</p>
 </blockquote>
-
-
 
 <h2 id="java-native-interface">Java Native Interface</h2>
 
@@ -877,7 +875,7 @@ Java_nl_jordiortola_wwiseintegratie_SoundEngine_loadBank(
 
 <span class="hljs-tag">&lt;/<span class="hljs-title">android.support.constraint.ConstraintLayout</span>&gt;</span></code></pre>
 
-<p></p><center><img src="https://lh3.googleusercontent.com/-bRxmAfimKPw/WQ_EoV1ed-I/AAAAAAAAJxQ/Yr8v2cJ0WII7bGpurgUGfR1iHdIruLn4ACE0/s650/Android+Studio+-+activity_main+layout+xml.PNG" alt="Android Studio - activity_main.xml layout resource" title="activity_main.xml layout resource"></center><p></p>
+<p></p><center><img src="https://lh3.googleusercontent.com/-bRxmAfimKPw/WQ_EoV1ed-I/AAAAAAAAJxQ/Yr8v2cJ0WII7bGpurgUGfR1iHdIruLn4ACE0/s800/Android+Studio+-+activity_main+layout+xml.PNG" alt="Android Studio - activity_main.xml layout resource" title="activity_main.xml layout resource"></center><p></p>
 
 <p>Schakel de knop in zodra de <code>SoundEngine</code> met success is geïnitialiseerd. Voeg vervolgens de click handler toe en stuur het Wwise event.</p>
 
